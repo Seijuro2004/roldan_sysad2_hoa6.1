@@ -1,0 +1,24 @@
+---
+# tasks file for web_server
+- name: update repo index for web_server
+  apt:
+    update_cache: yes
+  when: ansible_distribution == "Ubuntu"
+
+- name: install apache2
+  apt:
+    name: apache2
+    state: latest
+  when: ansible_distribution == "Ubuntu"
+
+- name: install php lib for apache2
+  apt:
+    name: libapache2-mod-php
+    state: latest
+  when: ansible_distribution == "Ubuntu"
+
+- name: start apache2
+  service:
+    name: apache2
+    state: restarted
+    enabled: true
